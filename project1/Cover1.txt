@@ -1,0 +1,21 @@
+Assignment 1:Programming Review
+
+Timothy Tran
+tht020@ucsd.edu
+02/05/19
+Course Number: CECS 326
+
+Software Description:
+The delivered software will start by allocating memory according to the following function.
+  f(0)=2700 & f(n+1)=2*f(n), where n is an index of the integer array for 0< n < 20.
+Where f(n) will indicate the size of an array of char pointers at n.
+After the memory is allocated the memory is assigned to random upper case letters.
+Then a main menu is accessible. Upon pressing 1, the user is prompted an index from 0 to 19.
+Upon pressing an index, it will bring up a sub menu which allows the user to view the first 10 
+chars in the index upon pressing 1 or deleted the chars at the index upon pressing 2.
+Upon pressing 2 in the main menu, the indexes of de-allocated indexes will be listed.
+Upon pressing 3 in the main menu, all of the indexes for all the char pointers will be deleted.
+Upon pressing 4 in the main menu, any remaining indexes will be deleted and the program will exit cleanly.
+
+Critique:
+Initialization takes a long amount of time (almost 10 minutes). Re-allocating the index number 19 will also take a long time.Other than that, program runs to specification exactly.

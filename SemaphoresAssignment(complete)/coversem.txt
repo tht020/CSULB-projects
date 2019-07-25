@@ -1,0 +1,22 @@
+Assignment 4: Programming with Semaphores
+
+Timothy Tran,
+012398631,
+tht020@ucsd.edu
+5/7/19
+Course Number: CECS 326
+
+Software Description:
+The following software delivered will first generate 4 blocks of memory for 3 chunks of 512 randomly generated char's 
+(as well as 1 block of shared memory sized int for a process completion flag). the first block will consist of purely
+lower case chars and the other 3 will be upper case chars. Upon runtime, the user will be given a prompt of how
+many swaps does the user want each process to perform. In each process,whenever a randomly generated
+32-bit int, speed_check, is less than 5000 a swap is performed. After the required amount of swaps, the process
+will exit. The last process that exits will remove the memory blocks and semaphore resources before exiting.
+
+Critique: The software will not deadlock because each semaphore's P function is stored in a condition which means
+that a process' condition will run in full before another process can perform any semaphore actions. There is no case of 
+processes waiting for each other in this case because the resources that are locked will be freed every time after
+a swap completes. There is no starvation because each process eventually gets their turn since there is no
+priority system and if two seperate processes are holding the resources of a blocked process, once those two free
+their resources the blocked process is in queue to run next. 

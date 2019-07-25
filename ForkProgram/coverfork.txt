@@ -1,0 +1,28 @@
+Assignment 3: Programming With Fork
+
+Timothy Tran
+012398631
+tht020@ucsd.edu
+4/9/19
+Course Number: CECS 326
+
+Software Description:
+The following software delivered will bring up a UI which will prompt
+the user for 2 strings. The first prompt is the string being replaced
+and the second prompt will be the string that will replace the first one.
+Using a pre-loaded document, the software will take in the strings 
+and fork into a child process which will count how many replacements
+will occur and it will replace those strings. The child will utilize
+a block of shared memory to pass the change document back to the parent.
+A bug was introduced that will infinitely loop the child's attempt to
+replace the string and follow the attempt with a printing of the '.'
+character. Once the child is finished or closed remotely the 
+parent will re-prompt the user with further string replacements until !wq
+is entered. Once !wq is entered the software deletes the block of shared 
+memory and the software the closes.
+
+Critique:
+No critques. The software performs as delivered. The software requires 8192 bytes of memory open
+and the process table to still be open to creating a process. If either of these are absent
+it will cause a failure due to no resources for the software to allocate and close without
+causing bugs. This software requires Testdoc.txt to be in the same directory as the executable.

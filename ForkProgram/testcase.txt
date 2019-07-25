@@ -1,0 +1,44 @@
+Test Cases:
+
+Case 1:
+
+Replacing Trump with DELETE
+Replacing Trump with ERROR
+
+Expected Result:
+
+Finds 11 counts, replaces each one on first run.
+Finds 0, infinite loop.
+
+Reason:
+Easy to test and find. Tests for replacing a string and attempting to replace the same string case.
+Also works for different length strings.
+
+
+
+Case 2:
+
+Replacing o with a
+Replacing a with o
+Replacing o with a
+
+Expected Result:
+
+Finds 284 counts, replaces all.
+Finds 565 counts, replaces all.
+Finds 565 counts, replaces all.
+
+Reason:
+Small and multiple replacement works and is reversible.
+
+Case 3:
+
+Replacing Doesnotexist with Anything.
+
+Expected Result:
+
+Finds 0, infinite loop.
+
+Reason:
+Tests if the injected bug is properly operating.
+

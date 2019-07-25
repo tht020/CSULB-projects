@@ -1,0 +1,152 @@
+#include <iostream>
+#include <vector>
+#include <random>
+#include <functional> 
+#include <algorithm>  
+#include <new>
+#include <memory>
+#include <memory_resource>
+#include <array>
+#include <vector>
+#include <charconv>
+#include <bits/stdc++.h> 
+
+#define ARRAY_SIZE 20
+
+struct trackchars {
+	
+	std::array<char*, ARRAY_SIZE> charptrs;
+	std::array<int, ARRAY_SIZE> indexsize;
+	std::array<int, ARRAY_SIZE> deleted;
+	
+	std::fill(charptrs, charptrs+ARRAY_SIZE,0);
+	std::fill(indexsize,indexsize+ARRAY_SIZE,0);
+	std::fill(deleted,deleted+ARRAY_SIZE,0);
+	
+}randchars;
+
+std::vector<char> upcasechars(){
+	return std::vector<char>(
+		'A','B','C','D','E','F',
+		'G','H','I','J','K',
+		'L','M','N','O','P',
+		'Q','R','S','T','U',
+		'V','W','X','Y','Z')
+}
+
+std::string listofchars( int length, std::function<char(void)> rand_char )
+{
+    std::string chars(length,0);
+    std::generate_n( chars.begin(), length, rand_char );
+    return chars;
+}
+
+void allocateAll () {
+	std::vector<char> ch_set = upcasechars();
+	std::default_random_engine rng(std::random_device{}()); 
+    std::uniform_int_distribution<> dist(0, ch_set.size()-1);
+	std::function<char(void)> randchar = [ ch_set,&dist,&rng ](){return ch_set[ dist(rng) ];};
+	
+	int n = 0;
+	randchars.indexsize[n]=2700;
+	
+	for(n; n<20; n++){
+		randchars.indexsize[n+1]=2*(randchars.indexsize[n]);
+	}
+	
+	for(n=0; n<20; n++){
+		randchars.charptrs[n]=new(nothrow) char [(indexsize[n])];
+		length=(indexsize[n]);
+		std::strcpy(randchars.charptrs[n],listofchars(length,randchar));
+	}
+}
+void allocateOne(int pointerdex){
+	
+	std::vector<char> ch_set = upcasechars();
+	std::default_random_engine rng(std::random_device{}()); 
+    std::uniform_int_distribution<> dist(0, ch_set.size()-1);
+	std::function<char(void)> randchar = [ ch_set,&dist,&rng ](){return ch_set[ dist(rng) ];};
+	
+	randchars.charptrs[pointerdex]=new(nothrow) char [(randchars.indexsize[pointerdex])];
+	length=(randchars.indexsize[pointerdex]);
+	std::strcpy(randchars.charptrs[pointerdex],listofchars(length,randchar));
+	
+}
+
+void subcommands(int pointerdex){
+
+	if(randchars.deleted[pointerdex]==1){
+		printf("This index has been deallocated. Reallocating...\n");
+		allocateOne(pointerdex);
+		randchars.deleted[pointerdex]=0;
+	}
+	
+	char option = '0';
+	
+	while(option != '3'){
+		
+		printf("Sub-Menu: \n (1) Print the first 10 char's in the chosen array \n (2) Delete all the char's associated with this pointer \n (3) Return to main menu")
+		std::cin.get(option);
+		
+		if(option=='1'){
+			for(int n=0,n<10,n++){
+			printf(randchars.charptrs[pointerdex][n]);
+			}
+		}
+		
+		else if(option == '2'){
+			randchars.deleted[pointerdex]=1;
+			delete[] randchars.charptrs[pointerdex];
+			printf("Chars deleted");
+		}
+		else{
+			printf("Invalid command.");
+		}
+	}
+	return 0;
+}
+	
+void main(){
+
+	allocateAll();
+	int option = '0';
+	
+	while(option != '4'){
+		
+		printf("Main Menu: \n (1) Access a pointer (index) \n (2) List deallocated memory (index) \n (3) Deallocate all memory \n (4) Exit program");
+		
+		cin.get(option);
+		
+		if(option=='1'){
+			printf("Type in the index:");
+			int index << std::stdin;
+			subcommands(index);
+		}
+		
+		else if(option == '2'){
+			printf("The indexes of deallocated memory are:");
+			for(int n=0,n<20,n++){
+				if(randchars.deleted[n]==1)
+					std::cout<<" " + n;
+			}
+		}
+		
+		else if(option == '3'){
+			delete[] randchars.charptrs;
+			
+			for(int n=0,n<20,n++){
+				randchars.deleted[n]=1
+			}
+			
+			printf("All indexes have been deleted");
+		}
+		else{
+			printf("Invalid command.");
+		}
+	}
+	
+	delete[] randchars;
+	exit(0);
+}
+
+	
